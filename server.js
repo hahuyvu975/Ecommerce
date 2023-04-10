@@ -5,6 +5,8 @@ const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 
+const userRouter = require('./routers/userRouter');
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -13,16 +15,19 @@ app.use(fileUpload({
     useTempFiles: true,
 }))
 
+app.use('/user', userRouter)
+
 // kết nối đến mongodb  
 const URI = process.env.MONGODB_URL;
 
 mongoose.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}), err => {
+}).then(result => {
+    console.log("Connected to MongoDB");
+}).catch(err => {
     if (err) throw err;
-    console.log('Connected to MongoDB!!!')
-}
+})
 
 app.get('/', (req, res) => {
     res.json({ msg: 'Welcome to the ecommerce website!! ' })
