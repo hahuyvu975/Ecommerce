@@ -26,7 +26,7 @@ const userCtrl = {
                 path: '/user/refresh_token',
             })
 
-            return res.json({ msg: "Register success" });
+            return res.json({ accessToken });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }
@@ -40,10 +40,26 @@ const userCtrl = {
 
             const isMatch = await bcrypt.compare(password, user.password)
             if(!isMatch) return res.status(400).json({msg: "Incorrect password"});
-
-            return res.json({msg: "Login successful"});
             
+            const accessToken = createAccessToken({ id: user._id });
+            const refreshToken = createRefreshToken({ id: user._id });
+            // result cookies
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                path: '/user/refresh_token',
+            })
+
+            return res.json({ accessToken });
+
         } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+    logout: async (req, res) => {
+        try {
+            res.clearCookie('refreshToken', {path: '/user/refresh_token'})
+            return res.json({msg: 'Logged Out'});
+        } catch (err) {
             return res.status(500).json({ msg: error.message });
         }
     },
@@ -63,6 +79,16 @@ const userCtrl = {
             return res.status(500).json({ msg: error.message });
         }
 
+    },
+    getUser: async (req, res) => {
+        try {
+            const user = await Users.findById(req.user.id).select('-password');
+            if(!user) return res.status(404).json({ msg: "User not found!"});
+
+            return res.json(user);
+        } catch (error) {
+            
+        }
     }
 }
 const createAccessToken = (user) => {
