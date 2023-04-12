@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const userRouter = require('./routers/userRouter');
 const categoryRouter = require('./routers/categoryRouter');
 const uploadRouter = require('./routers/upload');
+const productRouter = require('./routers/productRouter');
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use(fileUpload({
 app.use('/user', userRouter)
 app.use('/api', categoryRouter)
 app.use('/api', uploadRouter);
+app.use('/api', productRouter);
 
 
 // kết nối đến mongodb  
