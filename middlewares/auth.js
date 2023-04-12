@@ -12,7 +12,7 @@ const auth = (req,res, next) => {
             next();
         })
     } catch (err) {
-        res.status(500).json({msg:err.message});
+        return res.status(500).json({msg:err.message});
     }
 }
 module.exports = auth;

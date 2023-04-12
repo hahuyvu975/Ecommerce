@@ -6,6 +6,8 @@ const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 
 const userRouter = require('./routers/userRouter');
+const categoryRouter = require('./routers/categoryRouter');
+const uploadRouter = require('./routers/upload');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +18,9 @@ app.use(fileUpload({
 }))
 
 app.use('/user', userRouter)
+app.use('/api', categoryRouter)
+app.use('/api', uploadRouter);
+
 
 // kết nối đến mongodb  
 const URI = process.env.MONGODB_URL;
