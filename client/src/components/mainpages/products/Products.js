@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import {GlobalState} from '../../../GlobalState'
 import ProductItem from '../utils/Product_item/ProductItem'
-import './Products.CSS'
+import './Products.css'
 
 function Products() {
     const state = useContext(GlobalState)

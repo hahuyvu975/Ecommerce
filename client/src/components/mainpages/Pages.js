@@ -5,7 +5,7 @@ import Login from './auth/Login'
 import Register from './auth/Register'
 import Cart from './cart/Cart'
 import NotFound from './utils/not_found/NotFound'
-
+import DetailProduct from './products/detailProduct/DetailProduct'
 function Pages() {
   return (  
    <Routes>
@@ -13,7 +13,7 @@ function Pages() {
      <Route path='/login' exact Component={Login}/>
      <Route path='/register' exact Component={Register}/>
      <Route path='/cart' exact Component={Cart}/>
-
+     <Route path='/detail/:id' exact Component={DetailProduct}/>
      <Route path='*' exact Component={NotFound}/>
    </Routes>
   )
