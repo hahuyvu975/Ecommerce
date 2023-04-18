@@ -18,7 +18,7 @@ function ProductItem({product}) {
         <Link id="btn_buy" to = "#!">
           BUY
         </Link>
-        <Link id="btn_view" to = {`detail/${product._id}`}>
+        <Link id="btn_view" to = {`/detail/${product._id}`}>
           VIEW
         </Link>
 
